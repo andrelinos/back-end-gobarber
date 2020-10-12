@@ -20,6 +20,7 @@ class AppointmentsRepository implements IAppointmentsRespository {
 
   public async findAllInMonthFromProvider({
     provider_id,
+
     month,
     year,
   }: IFindAllInMonthFromProviderDTO): Promise<Appointment[]> {
