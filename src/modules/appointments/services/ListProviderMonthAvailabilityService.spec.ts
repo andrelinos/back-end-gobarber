@@ -13,6 +13,10 @@ describe('ListProviderMonthAvailability', () => {
   });
 
   it('should be able to list the month availability from provider', async () => {
+    const currentDateMock = new Date(2020, 10, 30, 8, 0, 0); // data fixa do servidor: 01/30/2020 8h
+    jest.spyOn(Date, 'now').mockReturnValue(currentDateMock.getTime());
+
+
     await fakeAppointmentsRepository.create({
       provider_id: 'user',
       date: new Date(2020, 10, 20, 8, 0, 0),
@@ -40,32 +44,32 @@ describe('ListProviderMonthAvailability', () => {
 
     await fakeAppointmentsRepository.create({
       provider_id: 'user',
-      date: new Date(2020, 10, 20, 13, 0, 0),
+      date: new Date(2020, 10, 30, 13, 0, 0),
     });
 
     await fakeAppointmentsRepository.create({
       provider_id: 'user',
-      date: new Date(2020, 10, 20, 14, 0, 0),
+      date: new Date(2020, 10, 30, 14, 0, 0),
     });
 
     await fakeAppointmentsRepository.create({
       provider_id: 'user',
-      date: new Date(2020, 10, 20, 15, 0, 0),
+      date: new Date(2020, 10, 30, 15, 0, 0),
     });
 
     await fakeAppointmentsRepository.create({
       provider_id: 'user',
-      date: new Date(2020, 10, 20, 16, 0, 0),
+      date: new Date(2020, 10, 30, 16, 0, 0),
     });
 
     await fakeAppointmentsRepository.create({
       provider_id: 'user',
-      date: new Date(2020, 10, 20, 17, 0, 0),
+      date: new Date(2020, 10, 30, 17, 0, 0),
     });
 
     await fakeAppointmentsRepository.create({
       provider_id: 'user',
-      date: new Date(2020, 10, 21, 8, 0, 0),
+      date: new Date(2020, 10, 30, 8, 0, 0),
     });
 
     const availability = await listProviderMonthAvailability.execute({
