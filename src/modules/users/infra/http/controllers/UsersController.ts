@@ -4,9 +4,9 @@ import { container } from 'tsyringe';
 import CreateUserService from '@modules/users/services/CreateUserService';
 
 export default class UsersController {
-  public async create(req: Request, res: Response): Promise<Response> {
+  public async create(request: Request, response: Response): Promise<Response> {
     try {
-      const { name, email, password } = req.body;
+      const { name, email, password } = request.body;
 
       const createUser = container.resolve(CreateUserService);
 
@@ -18,9 +18,9 @@ export default class UsersController {
 
       delete user.password;
 
-      return res.json(user);
+      return response.json(user);
     } catch (err) {
-      return res.status(400).json({ error: err.message });
+      return response.status(400).json({ error: err.message });
     }
   }
 }

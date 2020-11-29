@@ -1,10 +1,10 @@
-import FakeAppointmentsRepository from '@modules/appointments/repositories/fakes/FakeAppointmentsRepository';
+import FakeAppointmentsRepository from '../repositories/fakes/FakeAppointmentsRepository';
 import ListProviderDayAvailabilityService from './ListProviderDayAvailabilityService';
 
 let fakeAppointmentsRepository: FakeAppointmentsRepository;
 let listProviderDayAvailability: ListProviderDayAvailabilityService;
 
-describe('ListProviderDayAvailability', () => {
+describe('ListProviderMonthAvailability', () => {
   beforeEach(() => {
     fakeAppointmentsRepository = new FakeAppointmentsRepository();
     listProviderDayAvailability = new ListProviderDayAvailabilityService(
@@ -13,26 +13,26 @@ describe('ListProviderDayAvailability', () => {
   });
 
   it('should be able to list the day availability from provider', async () => {
-    jest.spyOn(Date, 'now').mockImplementationOnce(() => {
-      return new Date(200, 9, 20, 11).getTime();
-    })
-
     await fakeAppointmentsRepository.create({
-      provider_id: 'provider_id',
-      user_id: 'user_id',
-      date: new Date(2020, 9, 20, 14, 0, 0),
+      provider_id: 'provider-id',
+      user_id: 'user-id',
+      date: new Date(2020, 4, 20, 14, 0, 0),
     });
 
     await fakeAppointmentsRepository.create({
-      provider_id: 'provider_id',
-      user_id: 'user_id',
-      date: new Date(2020, 9, 20, 15, 0, 0),
+      provider_id: 'provider-id',
+      user_id: 'user-id',
+      date: new Date(2020, 4, 20, 15, 0, 0),
+    });
+
+    jest.spyOn(Date, 'now').mockImplementationOnce(() => {
+      return new Date(2020, 4, 20, 11).getTime();
     });
 
     const availability = await listProviderDayAvailability.execute({
-      provider_id: 'provider_id',
+      provider_id: 'provider-id',
       year: 2020,
-      month: 9,
+      month: 5,
       day: 20,
     });
 
@@ -48,6 +48,4 @@ describe('ListProviderDayAvailability', () => {
       ]),
     );
   });
-
-
 });

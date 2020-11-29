@@ -5,8 +5,8 @@ import UpdateProfileService from '@modules/users/services/UpdateProfileService';
 import ShowProfileService from '@modules/users/services/ShowProfileService';
 
 export default class ProfileController {
-  public async show(req: Request, res: Response): Promise<Response> {
-    const user_id = req.user.id;
+  public async show(request: Request, response: Response): Promise<Response> {
+    const user_id = request.user.id;
 
     const showProfile = container.resolve(ShowProfileService);
 
@@ -14,13 +14,13 @@ export default class ProfileController {
 
     delete user.password;
 
-    return res.json(user);
+    return response.json(user);
   }
 
-  public async update(req: Request, res: Response): Promise<Response> {
+  public async update(request: Request, response: Response): Promise<Response> {
     try {
-      const user_id = req.user.id;
-      const { name, email, old_password, password } = req.body;
+      const user_id = request.user.id;
+      const { name, email, old_password, password } = request.body;
 
       const updateProfile = container.resolve(UpdateProfileService);
 
@@ -34,9 +34,9 @@ export default class ProfileController {
 
       delete user.password;
 
-      return res.json(user);
+      return response.json(user);
     } catch (err) {
-      return res.status(400).json({ error: err.message });
+      return response.status(400).json({ error: err.message });
     }
   }
 }
