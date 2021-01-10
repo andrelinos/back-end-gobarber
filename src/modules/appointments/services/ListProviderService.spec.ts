@@ -1,14 +1,14 @@
 import FakeUsersRepository from '@modules/users/repositories/fakes/FakeUsersRepository';
-import ListProvidersService from './ListProvidersService';
+import ListProviderService from './ListProviderService';
 
 let fakeUsersRepository: FakeUsersRepository;
-let listProviders: ListProvidersService;
+let listProviders: ListProviderService;
 
 describe('ListProviders', () => {
   beforeEach(() => {
     fakeUsersRepository = new FakeUsersRepository();
 
-    listProviders = new ListProvidersService(fakeUsersRepository);
+    listProviders = new ListProviderService(fakeUsersRepository);
   });
 
   it('should be able to list the providers', async () => {

@@ -32,12 +32,12 @@ describe('CreateAppointment', () => {
 
     const appointment = await createAppointment.execute({
       date: new Date(2020, 4, 10, 13),
-      user_id: 'user-id',
-      provider_id: 'provider-id',
+      user_id: 'user',
+      provider_id: 'provider',
     });
 
     expect(appointment).toHaveProperty('id');
-    expect(appointment.provider_id).toBe('provider-id');
+    expect(appointment.provider_id).toBe('provider');
   });
 
   it('should not be able to create two appointments on the same time', async () => {
@@ -49,15 +49,15 @@ describe('CreateAppointment', () => {
 
     await createAppointment.execute({
       date: appointmentDate,
-      user_id: 'user-id',
-      provider_id: 'provider-id',
+      user_id: 'user',
+      provider_id: 'provider',
     });
 
     await expect(
       createAppointment.execute({
         date: appointmentDate,
-        user_id: 'user-id',
-        provider_id: 'provider-id',
+        user_id: 'user',
+        provider_id: 'provider',
       }),
     ).rejects.toBeInstanceOf(AppError);
   });
@@ -70,8 +70,8 @@ describe('CreateAppointment', () => {
     await expect(
       createAppointment.execute({
         date: new Date(2020, 4, 10, 11),
-        user_id: 'user-id',
-        provider_id: 'provider-id',
+        user_id: 'user',
+        provider_id: 'provider',
       }),
     ).rejects.toBeInstanceOf(AppError);
   });
@@ -84,8 +84,8 @@ describe('CreateAppointment', () => {
     await expect(
       createAppointment.execute({
         date: new Date(2020, 4, 10, 13),
-        user_id: 'user-id',
-        provider_id: 'user-id',
+        user_id: 'user',
+        provider_id: 'user',
       }),
     ).rejects.toBeInstanceOf(AppError);
   });
@@ -98,8 +98,8 @@ describe('CreateAppointment', () => {
     await expect(
       createAppointment.execute({
         date: new Date(2020, 4, 10, 13),
-        user_id: 'user-id',
-        provider_id: 'user-id',
+        user_id: 'user',
+        provider_id: 'user',
       }),
     ).rejects.toBeInstanceOf(AppError);
   });
@@ -112,16 +112,16 @@ describe('CreateAppointment', () => {
     await expect(
       createAppointment.execute({
         date: new Date(2020, 4, 11, 7),
-        user_id: 'user-id',
-        provider_id: 'provider-id',
+        user_id: 'user',
+        provider_id: 'provider',
       }),
     ).rejects.toBeInstanceOf(AppError);
 
     await expect(
       createAppointment.execute({
         date: new Date(2020, 4, 11, 18),
-        user_id: 'user-id',
-        provider_id: 'provider-id',
+        user_id: 'user',
+        provider_id: 'provider',
       }),
     ).rejects.toBeInstanceOf(AppError);
   });
