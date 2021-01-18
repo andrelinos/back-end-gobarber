@@ -28,7 +28,7 @@ class AppointmentsRepository implements IAppointmentsRespository {
       return (
         appointment.provider_id === provider_id &&
         getMonth(appointment.date) + 1 === month &&
-        getYear(appointment.date) + 1 === year
+        getYear(appointment.date) === year
       );
     });
 
@@ -46,7 +46,7 @@ class AppointmentsRepository implements IAppointmentsRespository {
         appointment.provider_id === provider_id &&
         getDate(appointment.date) === day &&
         getMonth(appointment.date) + 1 === month &&
-        getYear(appointment.date) + 1 === year
+        getYear(appointment.date) === year
       );
     });
 
