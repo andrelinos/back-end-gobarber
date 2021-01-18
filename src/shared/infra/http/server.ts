@@ -1,7 +1,9 @@
 import 'reflect-metadata';
+import 'dotenv/config';
 
 import express, { Request, Response, NextFunction } from 'express';
 import cors from 'cors';
+import { errors } from 'celebrate';
 import 'express-async-errors';
 
 import uploadConfig from '@config/upload';
@@ -18,21 +20,25 @@ app.use(express.json());
 app.use('/files', express.static(uploadConfig.uploadsFolder));
 app.use(routes);
 
-app.use((err: Error, request: Request, response: Response, _next: NextFunction) => {
-  if (err instanceof AppError) {
-    return response.status(err.statusCode).json({
+app.use(errors);
+
+app.use(
+  (err: Error, request: Request, response: Response, _next: NextFunction) => {
+    if (err instanceof AppError) {
+      return response.status(err.statusCode).json({
+        status: 'error',
+        message: err.message,
+      });
+    }
+
+    console.error(err);
+
+    return response.status(500).json({
       status: 'error',
-      message: err.message,
+      message: 'Internal server error',
     });
-  }
-
-  console.error(err);
-
-  return response.status(500).json({
-    status: 'error',
-    message: 'Internal server error',
-  });
-});
+  },
+);
 
 app.listen(3333, () => {
   console.log('🚀 Backend started! 🦖 on port 3333');

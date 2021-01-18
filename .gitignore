@@ -5,8 +5,11 @@ build/
 yarn.lock
 *.log
 temp/
+.env
+ormconfig.json
 
 tmp/*
 !tmp/.gitkeep
 
 coverage
+
